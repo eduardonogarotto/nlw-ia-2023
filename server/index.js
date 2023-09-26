@@ -4,7 +4,7 @@ import express from "express"
 import { convert } from "./convert.js"
 import { download } from "./download.js"
 import { transcribe } from "./transcribe.js"
-import { sumarize } from "./summarize.js"
+import { summarize } from "./summarize.js"
 
 const app = express()
 app.use(express.json())
@@ -19,15 +19,17 @@ app.get("/summary/:id", async (req, res) => {
 
     return res.json({ result })
   } catch (error) {
+    console.log(error)
     return res.json({ error })
   }
 })
 
 app.post("/summary", async (req, res) => {
   try {
-    const result = await sumarize(req.body.text)
+    const result = await summarize(req.body.text)
     return res.json({ result })
   } catch (error) {
+    console.error(error)
     return res.json({ error })
   }
 })
